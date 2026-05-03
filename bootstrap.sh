@@ -29,11 +29,6 @@ done
 # Write/refresh ~/.zshrc loader.
 cat > "$HOME/.zshrc" <<'EOF'
 # Zsh loader (modular dotfiles setup)
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME=""
-plugins=(git)
-source "$ZSH/oh-my-zsh.sh"
-
 for f in \
   "$HOME/.config/dotfiles/zsh/options.zsh" \
   "$HOME/.config/dotfiles/zsh/history.zsh" \

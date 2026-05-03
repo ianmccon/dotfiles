@@ -6,11 +6,27 @@ export EDITOR='nano'
 [[ -f "/usr/share/doc/fzf/examples/key-bindings.zsh" ]] && source "/usr/share/doc/fzf/examples/key-bindings.zsh"
 [[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
 
-[[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-[[ -f "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+  source "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+elif [[ -f "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+  source "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
 
-[[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-[[ -f "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# fast-syntax-highlighting (replaces zsh-syntax-highlighting)
+if [[ -f "$HOME/.local/share/zsh-plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ]]; then
+  source "$HOME/.local/share/zsh-plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
+elif [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+  source "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+
+# zsh-history-substring-search (must load AFTER syntax-highlighting)
+[[ -f "$HOME/.local/share/zsh-plugins/zsh-history-substring-search/zsh-history-substring-search.zsh" ]] && \
+  source "$HOME/.local/share/zsh-plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
+
+# zoxide — frecency-based cd replacement
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init zsh)"
+fi
 
 # Ctrl+R: timestamped fuzzy history picker
 fzf_history_widget() {

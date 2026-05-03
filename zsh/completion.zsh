@@ -1,4 +1,7 @@
 # Completion tuning
+# Extra completions from zsh-completions (cloned)
+fpath=(~/.local/share/zsh-plugins/zsh-completions/src $fpath)
+
 autoload -Uz compinit
 # Rebuild dump at most once per day
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then

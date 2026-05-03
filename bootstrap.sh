@@ -6,7 +6,27 @@ ZSH_DIR="$DOTFILES_DIR/zsh"
 GIT_DIR="$DOTFILES_DIR/git"
 NANO_DIR="$DOTFILES_DIR/nano"
 
-mkdir -p "$ZSH_DIR" "$GIT_DIR" "$NANO_DIR"
+PLUGINS_DIR="$HOME/.local/share/zsh-plugins"
+mkdir -p "$ZSH_DIR" "$GIT_DIR" "$NANO_DIR" "$PLUGINS_DIR"
+
+# Install/update Zsh plugins (shallow clones)
+_clone_or_pull() {
+  local repo="$1" dest="$2"
+  if [[ -d "$dest/.git" ]]; then
+    git -C "$dest" pull --ff-only --quiet
+  else
+    git clone --depth=1 "$repo" "$dest"
+  fi
+}
+_clone_or_pull https://github.com/zsh-users/zsh-completions.git \
+  "$PLUGINS_DIR/zsh-completions"
+_clone_or_pull https://github.com/zsh-users/zsh-history-substring-search.git \
+  "$PLUGINS_DIR/zsh-history-substring-search"
+_clone_or_pull https://github.com/zdharma-continuum/fast-syntax-highlighting.git \
+  "$PLUGINS_DIR/fast-syntax-highlighting"
+
+# Install apt extras (ignore errors if offline)
+sudo apt-get install -y zoxide 2>/dev/null || true
 
 # Ensure core dotfiles files exist; do not overwrite existing content.
 for f in \

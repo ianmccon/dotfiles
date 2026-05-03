@@ -1,0 +1,17 @@
+set linenumbers
+set tabsize 2
+set tabstospaces
+set smooth
+set softwrap
+set mouse
+set historylog
+set autoindent
+set indicator
+set minibar
+set guidestripe 80
+set titlecolor brightwhite,blue
+set statuscolor brightwhite,green
+set keycolor brightcyan
+set functioncolor brightmagenta
+set numbercolor brightyellow
+include "/usr/share/nano/*.nanorc"
